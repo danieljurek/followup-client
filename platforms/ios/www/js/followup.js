@@ -1,5 +1,7 @@
 var FollowUp = { 
 
+	domain: "http://followup.danieljurek.com", 
+
 	init: function() { 
 		//
 		//	Start up logic
@@ -7,6 +9,7 @@ var FollowUp = {
 		var userId = localStorage.getItem("userId"); 
 		if(userId) { 
 			window.location.hash = "main"; 
+			setTimeout(FollowUp.checkServerActions, 2000); 
 		} else { 
 			window.location.hash = "login"; 
 		}
@@ -22,7 +25,7 @@ var FollowUp = {
 		//
 		//	Check server for contact status
 		//
-		setTimeout(FollowUp.checkServerActions, 2000); 
+		
 
 	}, 
 
@@ -47,7 +50,7 @@ var FollowUp = {
 	//	Check for pending actions from the server
 	//
 	checkServerActions: function() { 
-		$.ajax("http://followup.danieljurek.com/card/get_completed", { 
+		$.ajax(FollowUp.domain + "/card/get_completed", { 
 			type: "GET", 
 			dataType: "json", 
 			data: { user_id: FollowUp.fromLocal("userId") }, 
@@ -88,13 +91,14 @@ var FollowUp = {
 	//
 
 	authenticate: function() { 
-		$.ajax("http://followup.danieljurek.com/user/login", { 
+		$.ajax(FollowUp.domain + "/user/login", { 
 			type: "POST", 
 			dataType: "json", 
 			data: { email: $("#loginEmailInput").val() }, 
 			success: function(data) { 
 				localStorage.setItem("userId", data.user_id); 
 				window.location.hash = "main"; 
+				setTimeout(FollowUp.checkServerActions, 2000); 
 			}, 
 			error: function() { 
 				alert("There was an error logging in!"); 
@@ -164,7 +168,7 @@ var FollowUp = {
 	captureImage: function() { 
 		window.location.hash = "loadingPage"; 
 
-		$.ajax('http://followup.danieljurek.com/card/submit', { 
+		$.ajax(FollowUp.domain + '/card/submit', { 
 			type: "POST", 
 			data: { user_id: FollowUp.fromLocal("userId"), front: samplePicture }, 
 			dataType: "json", 
@@ -288,13 +292,13 @@ var FollowUp = {
 
 
 			if(card.track) { 
-				$.ajax("http://followup.danieljurek.com/email/create/", { 
+				$.ajax(FollowUp.domain + "/email/create/", { 
 					type: "POST", 
 					dataType: "json", 
 					data: { user_id: FollowUp.fromLocal('userId'), request_id: cardId }, 
 					success: function(data) { 
 						body = FollowUp.replaceAll("\n", "<br />", body); 
-						body += "<img src='http://followup.danieljurek.com/email/view/?" + data.uuid + "' />"; 
+						body += "<img src='"+ FollowUp.domain + "/email/view/?" + data.uuid + "' />"; 
 
 						FollowUp.emailComposer(card.email, subject, body, true, cardId);   
 					}, 

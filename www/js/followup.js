@@ -1,6 +1,6 @@
 var FollowUp = { 
 
-	domain = "YOUR DOMAIN", 
+	domain: "DOMAIN GOES HERE", 
 
 	init: function() { 
 		//
@@ -9,6 +9,7 @@ var FollowUp = {
 		var userId = localStorage.getItem("userId"); 
 		if(userId) { 
 			window.location.hash = "main"; 
+			setTimeout(FollowUp.checkServerActions, 2000); 
 		} else { 
 			window.location.hash = "login"; 
 		}
@@ -24,7 +25,7 @@ var FollowUp = {
 		//
 		//	Check server for contact status
 		//
-		setTimeout(FollowUp.checkServerActions, 2000); 
+		
 
 	}, 
 
@@ -97,6 +98,7 @@ var FollowUp = {
 			success: function(data) { 
 				localStorage.setItem("userId", data.user_id); 
 				window.location.hash = "main"; 
+				setTimeout(FollowUp.checkServerActions, 2000); 
 			}, 
 			error: function() { 
 				alert("There was an error logging in!"); 
