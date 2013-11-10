@@ -1,0 +1,6 @@
+{
+    "version": "2.0.2",
+    "name": "emailcomposer",
+    "description": "\n    A Cordova plugin for composing new e-mail messages on iOS devices.  \n    Supports HTML formatted messages and file attachments.\n  ",
+    "license": "The MIT License (MIT)"
+}
