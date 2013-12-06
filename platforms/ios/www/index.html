@@ -27,17 +27,27 @@
         <script src="js/followup.js"></script>
 
         <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
-        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
         <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
-
-        <script src="js/image.js"></script> 
 
         <title>FollowUp</title>
 
         <script>
-           $(function() { 
-                FollowUp.init(); 
-            });
+        /*
+            document.addEventListener("deviceready",
+                function() { 
+                    $(function() { 
+                        document.body.style.marginTop = "70px";
+                        FollowUp.init(); 
+                    });
+                },
+                false);
+        */
+       $(function() { 
+            document.body.style.marginTop = "70px";
+            FollowUp.init(); 
+        });
+
         </script>
     </head>
     <body>
@@ -48,7 +58,11 @@
             </div>
 
             <div data-role="content">
-                <input type="text" id="loginEmailInput" />
+                Email: 
+                <input type="email" id="loginEmailInput" />
+
+                Password:
+                <input type="password" id="loginPasswordInput" />
                 <a data-role="button" data-icon"arrow-r" data-iconpos="right" id="loginButton">Log In</a>
             </div>
 
@@ -99,7 +113,7 @@
             <div data-role="content">
                 <a onClick="FollowUp.captureImage(this)" data-role="button" data-icon="bars">Capture</a>
                 <div> 
-                    
+                    <img id="previewImage" style="width: 100%;" />
                 </div>
 
             </div>
@@ -113,11 +127,10 @@
             </div>
 
             <div data-role="content">
-                <a href="#newCampaign" data-role="button" data-icon="plus">New Campaign</a>
-
+                <a href="#newCampaign" data-role="button" data-icon="plus">New Campaign</a><br />
+                <h3>Campaigns</h3>
                 <ul id="campaignList">
                 </ul>
-
             </div>
         </div>
 
@@ -173,35 +186,41 @@
             </div>
 
             <div data-role="content" id="viewContactsContent">
-                <h2>Contacts Translating</h2>
-                <ul id="contactsTranslating">
+                <!--<div data-role="collapsible"> 
+                    <h2>Contacts Translating</h2>
+                    <ul id="contactsTranslating"></ul>
+                </div>-->
 
-                </ul>
+                <div data-role="collapsible">
+                    <h2>Pending Email</h2>
+                    <ul id="contactsPendingEmail"></ul>
+                </div>
 
-                <h2>Pending Email</h2>
-                <ul id="contactsPendingEmail"> 
+                <div data-role="collapsible">
+                    <h2>Waiting for Read</h2>   
+                    <ul id="contactsWaitingRead"></ul>
+                </div>
 
-                </ul>
+                <div data-role="collapsible">
+                    <h2>Read</h2>
+                    <ul id="contactsRead"></ul>
+                </div>
 
-                <h2>Waiting for Read</h2>   
-                <ul id="contactsWaitingRead">
+                <div data-role="collapsible">
+                    <h2>Not Tracked</h2>
+                    <ul id="contactNotTracked"></ul>
+                </div>
 
-                </ul>
-
-                <h2>Read</h2>
-                <ul id="contactsRead">
-
-                </ul>
-
-                <h2>Not Tracked</h2>
-                <ul id="contactNotTracked">
-
-                </ul>
             </div>
         </div>
 
         <div id="loadingPage" data-rel="dialog" data-role="page"> 
-            Loading...
+            <div data-role="content"> 
+                <div class="center">
+                    <img src="img/load-spinner.gif" />
+                    Loading...
+                </div>
+            </div>
         </div>
 
 

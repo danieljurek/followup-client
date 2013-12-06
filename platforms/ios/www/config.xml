@@ -55,5 +55,8 @@
         <param name="ios-package" value="CDVCamera" />
     </feature>
 
+    <plugin name="File" value="CDVFile" />
+    <plugin name="FileTransfer" value="CDVFileTransfer" />
+
     <plugin name="Contacts" value="CDVContacts" />
 </widget>
